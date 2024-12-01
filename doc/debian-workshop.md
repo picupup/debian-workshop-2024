@@ -203,7 +203,7 @@ sudo systemctl start apache2
 ```
 
 ### Im Browser anschauen
-Erstellen einer Datei unter `/var/www/html/`. Zum Beispiel `hallo.txt` und ruffe es über `workshop<Nutzernummer>.erfanmedia.de/hallo.txt` auf.
+Erstelle einer Datei unter `/var/www/html/`. Zum Beispiel `hallo.txt` und ruffe es über `workshop<Nutzernummer>.erfanmedia.de/hallo.txt` auf.
 
 Sie können auch die `index.html` Datei umändern.
 
