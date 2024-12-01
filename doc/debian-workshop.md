@@ -7,9 +7,11 @@ Hallo, bitte befolge die Schritte. Das Ganze ist so gedacht, dass am Ende etwas 
 ### Links:
 Dieser Anleitung findest du auch unter:
 
-PDF: [erfanmedia.de/debian/workshop/debian-workshop.pdf](https://erfanmedia.de/debian/workshop/debian-workshop.pdf)
+**Markdown**: [github.com/picupup/debian-workshop-2024/blob/main/doc/debian-workshop.md](https://github.com/picupup/debian-workshop-2024/blob/main/doc/debian-workshop.md) 
 
-Markdown: [erfanmedia.de/debian/workshop/debian-workshop.md](https://erfanmedia.de/debian/workshop/debian-workshop.md)
+**PDF**: [erfanmedia.de/debian/workshop/debian-workshop.pdf](https://erfanmedia.de/debian/workshop/debian-workshop.pdf)
+
+**Markdown**: [erfanmedia.de/debian/workshop/debian-workshop.md](https://erfanmedia.de/debian/workshop/debian-workshop.md)
 
 ## Notizen:
 - **Spitzen Klammer**: Überall, wo ein Begriff in einer Spitzen Klammer steht, musst du diesen ersetzen, z.B. `<schreibe deine name>`.
@@ -100,7 +102,7 @@ Nun vergleiche die Zeit nochmal. Auf dem Server sollte jetzt die richtige Zeit a
 
 ## Nutzer erstellen
 
-Du bist aktuell als „root“-Nutzer eingeloggt. Doch da der „root“-Nutzer alle Rechte auf dem Server hat, ist es nicht sicher, als root eingeloggt zu sein. Du solltest dir einen separaten Nutzer erstellen und damit arbeiten. Root-Rechte werden nur bei der Installation oder Konfiguration von Komponenten benötigt.
+Du bist aktuell als „root“-Nutzer eingeloggt. Doch da der „root“-Nutzer alle Rechte auf dem Server hat, ist es nicht sicher, als root eingeloggt zu sein. Du solltest dir einen separaten Nutzer erstellen und damit arbeiten. Root-Rechte werden nur bei der Installation oder Konfiguration von Komponenten benötigt.\
 
 Nun solltest du einen neuen Nutzer erstellen. Achte auf die eckigen Klammern:
 
@@ -150,8 +152,8 @@ ssh workshopnutzer
 
 ## OHNE Passwort `sudo` aufrufen
 
-In dem neuen Nutzer befolge die folgenden Punkte, um zukünftig ohne Passwort `sudo` aufrufen zu können.
-Achtung, dies stellt ein Sicherheitsrisiko dar. Es wird empfohlen, immer das Passwort einzugeben. Aber hier wird es gezeigt, damit ihr wisst, wie es möglich ist:
+In dem neuen Nutzer befolge die folgenden Punkte, um zukünftig ohne Passwort `sudo` aufrufen zu können.\
+Achtung, dies stellt ein Sicherheitsrisiko dar. Es wird empfohlen, immer das Passwort einzugeben. Aber hier wird es gezeigt, damit ihr wisst, wie es möglich ist:\
 
 Alle selbst erstellten Dateien, die unter `/etc/sudoers.d/*` geschrieben sind, werden für die Konfiguration von Benutzer- und Gruppenrechten erstellt. Die Zahl am Anfang definiert, in welcher Reihenfolge sie beim Start ausgeführt werden.
 
@@ -165,10 +167,10 @@ Füge folgende Regel in dieser Datei hinzu:
 <Nutzer> ALL=(ALL) NOPASSWD: ALL
 ```
 
-Das erste `ALL` legt fest, dass der Benutzer `<Nutzer>` die Regel auf allen Hosts verwenden kann.
-Das `(ALL)` gibt an, dass `<Nutzer>` Befehle als jeder Benutzer ausführen darf, nicht nur als root.
-Das Schlüsselwort `NOPASSWD` bedeutet, dass `<Nutzer>` kein Passwort eingeben muss, wenn er `sudo` verwendet.
-Das letzte `ALL` gibt an, dass `<Nutzer>` alle Befehle mit `sudo` ausführen darf.
+Das erste `ALL` legt fest, dass der Benutzer `<Nutzer>` die Regel auf allen Hosts verwenden kann.\
+Das `(ALL)` gibt an, dass `<Nutzer>` Befehle als jeder Benutzer ausführen darf, nicht nur als root.\
+Das Schlüsselwort `NOPASSWD` bedeutet, dass `<Nutzer>` kein Passwort eingeben muss, wenn er `sudo` verwendet.\
+Das letzte `ALL` gibt an, dass `<Nutzer>` alle Befehle mit `sudo` ausführen darf.\
 
 Speichere und schließe die Datei.
 
