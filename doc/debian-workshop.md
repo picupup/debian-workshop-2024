@@ -20,13 +20,13 @@ Dieser Anleitung findest du auch unter:
 ## Vim:
 Mit „vim <Datei>“ kannst du eine Datei zum Bearbeiten oder Lesen öffnen. Benutze „i“, um in den Insert-Modus zu gehen, wo man die Datei ändern kann. Zum Speichern und Beenden drücke „ESC“ und gebe „:wq“ ein.
 
-## SSH-Zugang einrichten
+# SSH-Zugang einrichten
 Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ verbinden.
 
 - **Nutzernummer**: Für deinen Nutzer wähle bitte eine Zahl zwischen 1-9! Immer eine pro Person.
 - **Port**: Dein Nutzer-Port ist nun `400 + <Nutzernummer>`, z.B. `4001`.
 
-### SSH Config:
+## SSH Config:
 Schreibe bitte folgendes in deine `~/.ssh/config` Datei.
 
 ```bash
@@ -36,29 +36,29 @@ Host debianworkshop
     port <Dein Port>
 ```
 
-### SSH-Identität austauschen:
+## SSH-Identität austauschen:
 Wenn du dich im vorherigen Schritt mit dem Server verbunden hast, dann ist es an der Zeit, deine „Digitale Identität“ mit dem Server auszutauschen, damit du dich ohne Passwort einloggen kannst.
 
-#### ssh-keygen:
+### ssh-keygen:
 Existiert die Datei `~/.ssh/id_ed25519.pub` auf deinem Rechner? Wenn nicht, bedeutet dies, dass du noch keine „digitale SSH-Identität“ hast. In diesem Fall gib den Befehl `ssh-keygen` im Terminal ein und drücke immer „Enter“, bis es fertig ist.
 
 ```bash
 ssh-keygen -t ed25519
 ```
 
-#### Alternative Version für Automatisierung:
+### Alternative Version für Automatisierung:
 ```bash
 ssh-keygen -t ed25519 -N "" -f /home/${user}/.ssh/id_ed25519 <<<"y"
 ```
 
-### Verbindung testen:
+## Verbindung testen:
 Für das Testen bitte einmal folgendes aufrufen und bei der Anfrage „yes“ eingeben und bestätigen:
 
 ```ssh
 ssh debianworkshop
 ```
 
-#### ssh-copy-id:
+### ssh-copy-id:
 Mit folgendem Befehl teilst du deine Identität mit dem Server:
 
 ```bash
@@ -71,7 +71,7 @@ Jetzt solltest du dich ohne Eingabe des Passwortes auf dem Server einloggen kön
 ssh debianworkshop
 ```
 
-## Befehl Installieren
+# Befehl Installieren
 
 Damit du deine erste Erfahrung mit der Installation von Befehlen hast, bitte installiere folgende Befehle `pwgen`. Damit kannst du Passwörter erstellen. Mit dem `sudo`-Befehl können berechtigte Nutzer Befehle als root-Nutzer ausführen. So installiert man sie:
 
@@ -85,7 +85,7 @@ Nach der Installation versuche es zu testen, um ein Passwort der Länge 12 zu ge
 pwgen 12 1
 ```
 
-## Standard Zeit-Zone ändern
+# Standard Zeit-Zone ändern
 
 Mit dem Befehl „date“ vergleiche die Zeit des Servers mit der von deinem Handy. Die Zeit ist nicht auf `Europe/Berlin` eingestellt, sondern auf die globale Zeit. Daher bitte die folgenden Schritte befolgen, um die Zeitzone anzupassen.
 
@@ -100,7 +100,7 @@ dpkg-reconfigure -f noninteractive tzdata
 
 Nun vergleiche die Zeit nochmal. Auf dem Server sollte jetzt die richtige Zeit angezeigt werden.
 
-## Nutzer erstellen
+# Nutzer erstellen
 
 Du bist aktuell als „root“-Nutzer eingeloggt. Doch da der „root“-Nutzer alle Rechte auf dem Server hat, ist es nicht sicher, als root eingeloggt zu sein. Du solltest dir einen separaten Nutzer erstellen und damit arbeiten. Root-Rechte werden nur bei der Installation oder Konfiguration von Komponenten benötigt.\
 
@@ -113,7 +113,7 @@ chmod 755 /home/<user>
 
 Damit erstellst du einen Nutzer mit dem Home-Verzeichnis `/home/<user>` und setzt die Standard-Shell auf `/bin/bash`.
 
-### Erstelle ein Passwort für den Nutzer:
+## Erstelle ein Passwort für den Nutzer:
 
 ```bash
 password="$(pwgen 12 1)"
@@ -121,7 +121,7 @@ echo "<Nutzer>:${password}" | sudo chpasswd
 echo "Dein Passwort ist $password"
 ```
 
-### sudo Gruppe:
+## sudo Gruppe:
 Damit der neue Nutzer den Befehl `sudo` aufrufen kann, musst du den Nutzer in die „sudo“-Gruppe einfügen. Die Gruppe „sudo“ wurde mit der Installation von `sudo` erzeugt. Doch um zu wissen, wie man eine Gruppe erstellt, gebe folgendes im Terminal ein:
 
 ```bash
@@ -134,7 +134,7 @@ Und mit folgendem Code kannst du den Nutzer zur Gruppe `sudo` hinzufügen:
 usermod -aG sudo <Nutzer>
 ```
 
-## In den neuen Nutzer einloggen
+# In den neuen Nutzer einloggen
 
 Füge folgendes in die `~/.ssh/config` ein und verbinde dich ab jetzt mit dem neuen Nutzer im Server. Bei der Administration und Installation von Befehlen und Co., nutze den `sudo`-Befehl.
 
@@ -150,7 +150,7 @@ ssh-copy-id workshopnutzer
 ssh workshopnutzer
 ```
 
-## OHNE Passwort `sudo` aufrufen
+# OHNE Passwort `sudo` aufrufen
 
 In dem neuen Nutzer befolge die folgenden Punkte, um zukünftig ohne Passwort `sudo` aufrufen zu können.\
 Achtung, dies stellt ein Sicherheitsrisiko dar. Es wird empfohlen, immer das Passwort einzugeben. Aber hier wird es gezeigt, damit ihr wisst, wie es möglich ist:\
@@ -174,7 +174,7 @@ Das letzte `ALL` gibt an, dass `<Nutzer>` alle Befehle mit `sudo` ausführen dar
 
 Speichere und schließe die Datei.
 
-## Apache Server installieren:
+# Apache Server installieren:
 
 „Apache2“ ist ein Webserver. Wir werden diesen installieren. Bitte installiere ihn mit folgendem Befehl:
 
@@ -195,14 +195,14 @@ Starte den Apache2 mit:
 sudo service apache2 start
 ```
 
-### Achtung:
+## Achtung:
 Wir sind aktuell in einer virtuellen Docker-Umgebung. Solltest du Apache2 auf deinem eigenen Server starten wollen, nutze diesen Befehl:
 
 ```bash
 sudo systemctl start apache2
 ```
 
-### Im Browser anschauen
+# Im Browser anschauen
 Erstelle einer Datei unter `/var/www/html/`. Zum Beispiel `hallo.txt` und ruffe es über `workshop<Nutzernummer>.erfanmedia.de/hallo.txt` auf.
 
 Sie können auch die `index.html` Datei umändern.
@@ -212,7 +212,7 @@ Beispiel:
 echo "Hallo" > /var/www/html/hallo.txt
 ```
 
-## Fertig und Weiter
+# Fertig und Weiter
 
 Meine Admin-Skripte findet ihr hier: [github.com/picupup/scripts](https://github.com/picupup/scripts)
 
