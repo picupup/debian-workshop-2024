@@ -202,6 +202,16 @@ Wir sind aktuell in einer virtuellen Docker-Umgebung. Solltest du Apache2 auf de
 sudo systemctl start apache2
 ```
 
+### Im Browser anschauen
+Erstellen einer Datei unter `/var/www/html/`. Zum Beispiel `hallo.txt` und ruffe es über `workshop<Nutzernummer>.erfanmedia.de/hallo.txt` auf.
+
+Sie können auch die `index.html` Datei umändern.
+
+Beispiel:
+```bash
+echo "Hallo" > /var/www/html/hallo.txt
+```
+
 ## Fertig und Weiter
 
 Meine Admin-Skripte findet ihr hier: [github.com/picupup/scripts](https://github.com/picupup/scripts)
