@@ -1,0 +1,31 @@
+services:
+  workshop_debian_server_1:
+    image: debian_server_workshop_image
+    container_name: "debian-workshop-1"
+    restart: unless-stopped
+    ports:
+      - "4001:22" # Exposes unique ports per instance
+      - "5001:5001"
+      - "6001:80"
+      - "7001:443"
+    environment:
+      - USER_NUMBER=1
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+  workshop_debian_server_2:
+    image: debian_server_workshop_image
+    container_name: "debian-workshop-2"
+    restart: unless-stopped
+    ports:
+      - "4002:22" # Exposes unique ports per instance
+      - "5002:5002"
+      - "6002:80"
+      - "7002:443"
+    environment:
+      - USER_NUMBER=2
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
