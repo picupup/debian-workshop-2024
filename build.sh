@@ -10,10 +10,11 @@
 if [ "$1" = "-r" ];then
 	echo "Rebuilding image/container"
 	./delete_containers.sh
-	./build-image.sh
+	./image-build.sh
 fi
 
 ./create-compose-file.sh
+
 
 docker compose up --build -d || exit 1
 

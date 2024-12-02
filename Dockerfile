@@ -1,6 +1,9 @@
 # Basisimage
 FROM debian:bullseye
 
+# ARG ROOT_PASSWORD
+# ENV ROOT_PASSWORD=$ROOT_PASSWORD
+
 # ENV TZ=Europe/Berlin
 
 # Installiere den SSH-Server und richte die Umgebung ein
@@ -9,10 +12,12 @@ RUN apt-get install -y vim curl wget dumb-init iproute2 html2text w3m net-tools
 # RUN apt-get install -y systemd
 RUN apt-get install -y openssh-server && \
     mkdir /var/run/sshd && \
-    echo 'root:labor' | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/#Port 22/Port 22\n# Workshop tipp: Neuen Port hier einfuegen und den vorherigen so lassen\n/' /etc/ssh/sshd_config
+
+RUN --mount=type=secret,id=root_password \
+    echo "root:$(cat /run/secrets/root_password)" | chpasswd
 
 # RUN apt-get install -y tzdata && \
 #    ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \

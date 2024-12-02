@@ -5,10 +5,6 @@ Erfan Karimi  12.12.2024
 Hallo, bitte befolge die Schritte. Das Ganze ist so gedacht, dass am Ende etwas übrig bleibt, also hab kein Stress.
 
 
-| Spalte 1 | Spalte 2 | Spalte 3 |
-|----------|----------|----------|
-| Wert 1   | Wert 2   | Wert 3   |
-| Wert 4   | Wert 5   | Wert 6   |
 
 ### Links:
 Dieser Anleitung findest du auch unter:
@@ -27,10 +23,17 @@ Dieser Anleitung findest du auch unter:
 Mit „vim <Datei>“ kannst du eine Datei zum Bearbeiten oder Lesen öffnen. Benutze „i“, um in den Insert-Modus zu gehen, wo man die Datei ändern kann. Zum Speichern und Beenden drücke „ESC“ und gebe „:wq“ ein.
 
 # 1. SSH-Zugang einrichten
-Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ verbinden.
+Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ verbinden.\
+**Nutzernummer/port**: Für deinen Nutzer wähle bitte ein Server aus der untere Tabelle.! Immer eine pro Person.
 
-- **Nutzernummer**: Für deinen Nutzer wähle bitte eine Zahl zwischen 1-9! Immer eine pro Person.
-- **Port**: Dein Nutzer-Port ist nun `4000 + <Nutzernummer>`, z.B. `4001`.
+
+| Server-Nummer |    s1    |	s2    | s3	 |     s4   | s5       |  s6	  | 	 s7  |  s8  |   s9 |  10   |
+|---------------|----------|----------|----------|----------|----------|----------|----------|------|------|-------|
+| Hauptport     |   3389   |    3306  |  587     |    5222  |     990  | 993      |   995    |27017 | 5900 | 25565 |
+|---------------|----------|----------|----------|----------|----------|----------|----------|------|------|-------|
+| Alter. Port   |    5001  |    5002  |    5003  |     5004 |     5005 |    5006  |    5007  | 5008 | 5009 | 5010  |
+
+Von der Hochschul-net nach aussen funktionieren die "Alter. Port"s nicht.
 
 ## SSH Config:
 Schreibe bitte folgendes in deine `~/.ssh/config` Datei.
@@ -228,7 +231,7 @@ Um daten im Internet anzuzeigen speichert man die Daten unter `/var/www/html`
 Da apache als root installiert ist, kann deinen neuen Nutzer nicht in dem Web-Verzeichnis schreiben. Um die Besitzer dieser Verzeichnis zu ändern führe folgendes durch.
 
 ```bash
-chown <nutzer>:<nutzer> /var/www/html
+sudo chown <nutzer>:<nutzer> /var/www/html
 ```
 
 ## Im Browser anschauen

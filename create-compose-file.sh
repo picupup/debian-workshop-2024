@@ -9,16 +9,25 @@
 
 echo "services:" > docker-compose.yml
 
-for i in {1..2}; do
+ports=( 3389 3306
+       	# 587 5222 990 993 995 
+        # 27017 5900 25565
+	)
+
+i=0
+for port in ${ports[@]}; do
+	i=$(( i + 1 ))
+	port2=$((5000 + i)) 
+	echo "Ports $port $port2"
 	echo -e "  workshop_debian_server_$i:
     image: debian_server_workshop_image
     container_name: \"debian-workshop-$i\"
     restart: unless-stopped
     ports:
-      - \"400$i:22\" # Exposes unique ports per instance
-      - \"500$i:500$i\"
-      - \"600$i:80\"
-      - \"700$i:443\"
+      - \"$port:22\" # Exposes unique ports per instance
+      - \"$port2:$port2\"
+      - \"$((6000 + i)):80\"
+      - \"$((7000 + i)):443\"
     environment:
       - USER_NUMBER=$i
     deploy:
