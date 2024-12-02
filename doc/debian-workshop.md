@@ -74,7 +74,7 @@ ssh debianworkshop
 ### SSH port ändern
 In diesem abschnitt fügen wir einen alternativen ssh-port zu `openssh-server` config.
 Mit `sudo vim /etc/ssh/sshd_config` die config Datei aufmachen `i` drucken und nach der Zeile `Port 22` folgendes einfügen: `Port 5000 + <Nutzernummer>` z.B. 5001.\
-Dann mit `service sshd restart` den openssh-server neustarten. **Und versuchen über neuen Port den Server zu erreichen: `ssh -p 5001 root@erfanmedia.de`.
+Dann mit `service ssh restart` den openssh-server neustarten. **Und versuchen über neuen Port den Server zu erreichen: `ssh -p 5001 root@erfanmedia.de`.
 
 # Befehl Installieren
 
