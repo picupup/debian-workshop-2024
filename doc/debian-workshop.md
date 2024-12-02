@@ -24,7 +24,7 @@ Mit „vim <Datei>“ kannst du eine Datei zum Bearbeiten oder Lesen öffnen. Be
 Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ verbinden.
 
 - **Nutzernummer**: Für deinen Nutzer wähle bitte eine Zahl zwischen 1-9! Immer eine pro Person.
-- **Port**: Dein Nutzer-Port ist nun `400 + <Nutzernummer>`, z.B. `4001`.
+- **Port**: Dein Nutzer-Port ist nun `4000 + <Nutzernummer>`, z.B. `4001`.
 
 ## SSH Config:
 Schreibe bitte folgendes in deine `~/.ssh/config` Datei.
@@ -70,6 +70,11 @@ Jetzt solltest du dich ohne Eingabe des Passwortes auf dem Server einloggen kön
 ```bash
 ssh debianworkshop
 ```
+
+### SSH port ändern
+In diesem abschnitt fügen wir einen alternativen ssh-port zu `openssh-server` config.
+Mit `sudo vim /etc/ssh/sshd_config` die config Datei aufmachen `i` drucken und nach der Zeile `Port 22` folgendes einfügen: `Port 5000 + <Nutzernummer>` z.B. 5001.\
+Dann mit `service sshd restart` den openssh-server neustarten. **Und versuchen über neuen Port den Server zu erreichen: `ssh -p 5001 root@erfanmedia.de`.
 
 # Befehl Installieren
 
