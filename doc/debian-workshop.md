@@ -4,6 +4,12 @@ Erfan Karimi  12.12.2024
 # Debian Workshop Anleitung 
 Hallo, bitte befolge die Schritte. Das Ganze ist so gedacht, dass am Ende etwas übrig bleibt, also hab kein Stress.
 
+
+| Spalte 1 | Spalte 2 | Spalte 3 |
+|----------|----------|----------|
+| Wert 1   | Wert 2   | Wert 3   |
+| Wert 4   | Wert 5   | Wert 6   |
+
 ### Links:
 Dieser Anleitung findest du auch unter:
 
@@ -20,7 +26,7 @@ Dieser Anleitung findest du auch unter:
 ## Vim:
 Mit „vim <Datei>“ kannst du eine Datei zum Bearbeiten oder Lesen öffnen. Benutze „i“, um in den Insert-Modus zu gehen, wo man die Datei ändern kann. Zum Speichern und Beenden drücke „ESC“ und gebe „:wq“ ein.
 
-# SSH-Zugang einrichten
+# 1. SSH-Zugang einrichten
 Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ verbinden.
 
 - **Nutzernummer**: Für deinen Nutzer wähle bitte eine Zahl zwischen 1-9! Immer eine pro Person.
@@ -73,10 +79,10 @@ ssh debianworkshop
 
 ### SSH port ändern
 In diesem abschnitt fügen wir einen alternativen ssh-port zu `openssh-server` config.
-Mit `sudo vim /etc/ssh/sshd_config` die config Datei aufmachen `i` drucken und nach der Zeile `Port 22` folgendes einfügen: `Port 5000 + <Nutzernummer>` z.B. 5001.\
-Dann mit `service ssh restart` den openssh-server neustarten. **Und versuchen über neuen Port den Server zu erreichen: `ssh -p 5001 root@erfanmedia.de`.
+Mit `vim /etc/ssh/sshd_config` die config Datei aufmachen `i` drucken und nach der Zeile `Port 22` folgendes einfügen: `Port 5000 + <Nutzernummer>` z.B. 5001.\
+Dann mit `service ssh restart` den openssh-server neustarten. Achtung die sitzung beendet sich. **Und versuchen über neuen Port den Server zu erreichen: `ssh -p 5001 root@erfanmedia.de`.
 
-# Befehl Installieren
+# 2. Befehl Installieren
 
 Damit du deine erste Erfahrung mit der Installation von Befehlen hast, bitte installiere folgende Befehle `pwgen`. Damit kannst du Passwörter erstellen. Mit dem `sudo`-Befehl können berechtigte Nutzer Befehle als root-Nutzer ausführen. So installiert man sie:
 
@@ -90,7 +96,13 @@ Nach der Installation versuche es zu testen, um ein Passwort der Länge 12 zu ge
 pwgen 12 1
 ```
 
-# Standard Zeit-Zone ändern
+# 3. Standard Zeit-Zone ändern
+
+Ist die Zeit richtig?
+ 
+```bash
+date
+```
 
 Mit dem Befehl „date“ vergleiche die Zeit des Servers mit der von deinem Handy. Die Zeit ist nicht auf `Europe/Berlin` eingestellt, sondern auf die globale Zeit. Daher bitte die folgenden Schritte befolgen, um die Zeitzone anzupassen.
 
@@ -105,11 +117,13 @@ dpkg-reconfigure -f noninteractive tzdata
 
 Nun vergleiche die Zeit nochmal. Auf dem Server sollte jetzt die richtige Zeit angezeigt werden.
 
-# Nutzer erstellen
+# 4. Nutzer erstellen
 
 Du bist aktuell als „root“-Nutzer eingeloggt. Doch da der „root“-Nutzer alle Rechte auf dem Server hat, ist es nicht sicher, als root eingeloggt zu sein. Du solltest dir einen separaten Nutzer erstellen und damit arbeiten. Root-Rechte werden nur bei der Installation oder Konfiguration von Komponenten benötigt.\
 
 Nun solltest du einen neuen Nutzer erstellen. Achte auf die eckigen Klammern:
+
+**Spitze Klammer <user> austauchen**
 
 ```bash
 useradd -m -d /home/<user> -s /bin/bash <user>
@@ -139,7 +153,7 @@ Und mit folgendem Code kannst du den Nutzer zur Gruppe `sudo` hinzufügen:
 usermod -aG sudo <Nutzer>
 ```
 
-# In den neuen Nutzer einloggen
+# 5. In den neuen Nutzer einloggen
 
 Füge folgendes in die `~/.ssh/config` ein und verbinde dich ab jetzt mit dem neuen Nutzer im Server. Bei der Administration und Installation von Befehlen und Co., nutze den `sudo`-Befehl.
 
@@ -155,10 +169,10 @@ ssh-copy-id workshopnutzer
 ssh workshopnutzer
 ```
 
-# OHNE Passwort `sudo` aufrufen
+# 6. OHNE Passwort `sudo` aufrufen
 
 In dem neuen Nutzer befolge die folgenden Punkte, um zukünftig ohne Passwort `sudo` aufrufen zu können.\
-Achtung, dies stellt ein Sicherheitsrisiko dar. Es wird empfohlen, immer das Passwort einzugeben. Aber hier wird es gezeigt, damit ihr wisst, wie es möglich ist:\
+**Achtung**, dies stellt ein Sicherheitsrisiko dar. Es wird empfohlen, immer das Passwort einzugeben. Aber hier wird es gezeigt, damit ihr wisst, wie es möglich ist:
 
 Alle selbst erstellten Dateien, die unter `/etc/sudoers.d/*` geschrieben sind, werden für die Konfiguration von Benutzer- und Gruppenrechten erstellt. Die Zahl am Anfang definiert, in welcher Reihenfolge sie beim Start ausgeführt werden.
 
@@ -179,7 +193,7 @@ Das letzte `ALL` gibt an, dass `<Nutzer>` alle Befehle mit `sudo` ausführen dar
 
 Speichere und schließe die Datei.
 
-# Apache Server installieren:
+# 7. Apache Server installieren:
 
 „Apache2“ ist ein Webserver. Wir werden diesen installieren. Bitte installiere ihn mit folgendem Befehl:
 
@@ -207,7 +221,17 @@ Wir sind aktuell in einer virtuellen Docker-Umgebung. Solltest du Apache2 auf de
 sudo systemctl start apache2
 ```
 
-# Im Browser anschauen
+## Besitzer des Web-Verzeichnises ändern
+
+Um daten im Internet anzuzeigen speichert man die Daten unter `/var/www/html`
+
+Da apache als root installiert ist, kann deinen neuen Nutzer nicht in dem Web-Verzeichnis schreiben. Um die Besitzer dieser Verzeichnis zu ändern führe folgendes durch.
+
+```bash
+chown <nutzer>:<nutzer> /var/www/html
+```
+
+## Im Browser anschauen
 Erstelle einer Datei unter `/var/www/html/`. Zum Beispiel `hallo.txt` und ruffe es über `workshop<Nutzernummer>.erfanmedia.de/hallo.txt` auf.
 
 Sie können auch die `index.html` Datei umändern.
