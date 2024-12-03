@@ -9,9 +9,8 @@
 # references: https://stackoverflow.com/a/58885711
 # 		https://tex.stackexchange.com/a/651717
 
-pandoc debian-workshop.md --listings -H listings-setup.tex -V colorlinks=true \
+pandoc README.md --listings -H listings-setup.tex -V colorlinks=true \
 -V linkcolor=blue \
 -V urlcolor=red \
 -V toccolor=gray -o /var/www/html/debian/workshop/debian-workshop.pdf
 
-cp debian-workshop.md /var/www/html/debian/workshop/debian-workshop.md
