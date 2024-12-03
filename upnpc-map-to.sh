@@ -36,6 +36,5 @@ type=${5:-"TCP"}
 
 which upnpc &>/dev/null || { echo "Error: Please install the command 'upnpc' via 'miniupnpc'." >&2; exit 1; }
 
-echo -n "Linking "
 upnpc -e "${name}" -a "${ip}" ${p1} ${p2} "${type}" | grep "is redirected" | tr -dc '0-9:. ' | tr ' ' '-' | sed 's/------/ ---> /' | sed 's/-0$//' | sed 's/^-//'
 echo
