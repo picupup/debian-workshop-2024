@@ -9,12 +9,12 @@
 
 source ports.conf
 
-echo "Openning ports to the internet:"
+echo "Closing ports to the internet:"
 i=0
 for port in ${ports[@]}; do 
 	i=$(( i + 1 ))
         port2=$((5000 + i))
-	./upnpc-map-to.sh "debian workshop $i" $port
-	./upnpc-map-to.sh "debian workshop $i" $port2
+	echo "Closing $port2 and $port..."
+	upnpc -d $port TCP >/dev/null
 done
 

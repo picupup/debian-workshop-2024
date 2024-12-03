@@ -7,12 +7,9 @@
 # set -x # Uncomment to debug
 # set -n # Uncomment to check script syntax without execution
 
-echo "services:" > docker-compose.yml
+source ports.conf
 
-ports=( 3389 3306 587 5222 
-	 # 990 993 995 
-         # 27017 5900 25565
-	)
+echo "services:" > docker-compose.yml
 
 i=0
 for port in ${ports[@]}; do
