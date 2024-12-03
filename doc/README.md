@@ -22,7 +22,7 @@ Mit „vim <Datei>“ kannst du eine Datei zum Bearbeiten oder Lesen öffnen. Be
 
 # 1. SSH-Zugang einrichten
 Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ verbinden.\
-**Nutzernummer/port**: Für deinen Nutzer wähle bitte ein Server:
+**Nutzernummer/port**: Für deinen Nutzer wähle bitte ein Server ([Auch verfugbar in Ports Text-Datei](https://github.com/picupup/debian-workshop-2024/blob/main/doc/paired_ports.txt)):
 
 ```txt
 Server : Port 1 - Port 2
