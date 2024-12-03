@@ -23,26 +23,26 @@ while [ $((i + 1)) -lt $array_size ]; do
     port1=${ports[$i]}
     port2=${ports[$((i + 1))]}
     i=$((i + 2)) # Increment by 2 since we use two ports per service
-
+    server=$((i /2))
     echo "Ports $port1 $port2"
-    echo -e "  workshop_debian_server_$((i / 2)):
+    echo -e "  workshop_debian_server_$server:
     image: debian_server_workshop_image
-    container_name: \"debian-workshop-$((i / 2))\"
-    hostname: \"debian-workshop-server-$((i / 2))\"
+    container_name: \"debian-workshop-$server\"
+    hostname: \"debian-workshop-server-$server\"
     restart: unless-stopped
     ports:
       - \"$port1:22\" # Exposes unique ports per instance
       - \"$port2:$port2\"
-      - \"$((6000 + i)):80\"
-      - \"$((7000 + i)):443\"
+      - \"$((6000 + server)):80\"
+      - \"$((7000 + server)):443\"
     environment:
-      - USER_NUMBER=$((i / 2))
+      - USER_NUMBER=$server
     deploy:
       resources:
         limits:
           cpus: \"1.5\"" >> docker-compose.yml
 
-    if [ $((i / 2)) -ge $LIMIT ]; then
+    if [ $server -ge $LIMIT ]; then
         echo "Limit $LIMIT erreicht"
         break
     fi

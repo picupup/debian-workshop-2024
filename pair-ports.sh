@@ -3,7 +3,7 @@
 # AUTHOR: primeuser 
 # DATE: 2024-12-03T15:30:02
 # REV: 1.0
-# PURPOSE: This pairs the ports so you can, see which pair belongs to the server
+# PURPOSE: This pairs the ports so you can see which pair belongs to the server. It also writes it in the README file
 # set -x # Uncomment to debug
 # set -n # Uncomment to check script syntax without execution
 #!/bin/bash
