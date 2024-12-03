@@ -7,11 +7,11 @@ Hallo, bitte befolge die Schritte. Das Ganze ist so gedacht, dass am Ende etwas 
 ### Links:
 Dieser Anleitung findest du auch unter:
 
-**Markdown**: [github.com/picupup/debian-workshop-2024/blob/main/doc/debian-workshop.md](https://github.com/picupup/debian-workshop-2024/blob/main/doc/debian-workshop.md) 
+![Github doc](barcode.png "Github access point")
+
+**Markdown**: [github.com/picupup/debian-workshop-2024/blob/main/doc/README.md](https://github.com/picupup/debian-workshop-2024/blob/main/doc/README.md) 
 
 **PDF**: [erfanmedia.de/debian/workshop/debian-workshop.pdf](https://erfanmedia.de/debian/workshop/debian-workshop.pdf)
-
-**Markdown**: [erfanmedia.de/debian/workshop/debian-workshop.md](https://erfanmedia.de/debian/workshop/debian-workshop.md)
 
 ## Notizen:
 - **Spitzen Klammer**: Überall, wo ein Begriff in einer Spitzen Klammer steht, musst du diesen ersetzen, z.B. `<schreibe deine name>`.
