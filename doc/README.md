@@ -22,21 +22,7 @@ Mit „vim <Datei>“ kannst du eine Datei zum Bearbeiten oder Lesen öffnen. Be
 
 # 1. SSH-Zugang einrichten
 Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ verbinden.\
-**Nutzernummer/port**: Für deinen Nutzer wähle bitte ein Server aus der untere Tabelle.! Immer eine pro Person.
-
-
-| Server-Nummer |    s1    |	s2    | s3	 |     s4   | s5       |  s6	  |
-|---------------|----------|----------|----------|----------|----------|----------|
-| Hauptport     |   3389   |    3306  |  587     |    5222  |     990  | 993      |
-| Alter. Port   |    5001  |    5002  |    5003  |     5004 |     5005 |    5006  |
-
-
-| Server-Nummer |      s7  |  s8  |   s9 |  10   |
-|---------------|----------|------|------|-------|
-| Hauptport     |   995    |27017 | 5900 | 25565 |
-| Alter. Port   |    5007  | 5008 | 5009 | 5010  |
-
-Von der Hochschul-net nach aussen funktionieren die "Alter. Port"s nicht.
+**Nutzernummer/port**: Für deinen Nutzer wähle bitte ein Server aus der Datei `paired_ports.txt` aus. Gilt bis 10.
 
 ## SSH Config:
 Schreibe bitte folgendes in deine `~/.ssh/config` Datei.
