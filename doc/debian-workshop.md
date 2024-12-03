@@ -244,6 +244,22 @@ Beispiel:
 echo "Hallo" > /var/www/html/hallo.txt
 ```
 
+# 8. Skripte Serverweit zugänglich machen
+Erstellen sie ein Skript mit sudo unter `/usr/local/bin/` und machen sie es für alle Nutzern ausführbar. Und testen sie es.
+
+Hier ist ein Beispiel:
+
+``bash
+sudo tee /usr/local/bin/hallo.sh &>/dev/null <<END
+#!/usr/bin/env bash
+echo "Hallo das Skript wird hiermit ausgeführt. Hier ist die Zeit $(date '+%F_%T')" 
+END
+
+sudo chmod o+x /usr/local/bin/hallo.sh
+
+hallo.sh
+```
+
 # Fertig und Weiter
 
 Meine Admin-Skripte findet ihr hier: [github.com/picupup/scripts](https://github.com/picupup/scripts)

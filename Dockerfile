@@ -8,7 +8,8 @@ FROM debian:bullseye
 
 # Installiere den SSH-Server und richte die Umgebung ein
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y vim curl wget dumb-init iproute2 html2text w3m net-tools
+RUN apt-get install -y vim curl dumb-init git
+RUN apt-get install -y iproute2 html2text w3m net-tools
 # RUN apt-get install -y systemd
 RUN apt-get install -y openssh-server && \
     mkdir /var/run/sshd && \
