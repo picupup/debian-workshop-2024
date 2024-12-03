@@ -22,7 +22,31 @@ Mit „vim <Datei>“ kannst du eine Datei zum Bearbeiten oder Lesen öffnen. Be
 
 # 1. SSH-Zugang einrichten
 Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ verbinden.\
-**Nutzernummer/port**: Für deinen Nutzer wähle bitte ein Server aus der Datei `paired_ports.txt` aus. Gilt bis 10.
+**Nutzernummer/port**: Für deinen Nutzer wähle bitte ein Server:
+
+```txt
+Server : Port 1 - Port 2
+1 : 53 - 110
+2 : 119 - 123
+3 : 389 - 465
+4 : 502 - 563
+5 : 636 - 989
+6 : 1194 - 1352
+7 : 1883 - 1935
+8 : 2022 - 3128
+9 : 3478 - 4190
+10 : 5223 - 5349
+11 : 8000 - 8009
+12 : 8883 - 9001
+13 : 20001 - 20000
+14 : 20003 - 20007
+15 : 20009 - 20019
+16 : 20020 - 20026
+17 : 20041 - 20045
+18 : 20044 - 20052
+19 : 20059 - 20062
+20 : 20069 - 20078
+```
 
 ## SSH Config:
 Schreibe bitte folgendes in deine `~/.ssh/config` Datei.
@@ -31,7 +55,7 @@ Schreibe bitte folgendes in deine `~/.ssh/config` Datei.
 Host debianworkshop
     hostname erfanmedia.de
     user root
-    port <Dein Port>
+    port <Port 1>
 ```
 
 ## SSH-Identität austauschen:
@@ -80,8 +104,16 @@ Du kannst auch mit vim etwas darein schreiben.
 
 ### SSH port ändern
 In diesem abschnitt fügen wir einen alternativen ssh-port zu `openssh-server` config.
-Mit `vim /etc/ssh/sshd_config` die config Datei aufmachen `i` drucken und nach der Zeile `Port 22` folgendes einfügen: `Port 5000 + <Nutzernummer>` z.B. 5001.\
-Dann mit `service ssh restart` den openssh-server neustarten. Achtung die sitzung beendet sich. **Und versuchen über neuen Port den Server zu erreichen: `ssh -p 5001 root@erfanmedia.de`.
+Mit `vim /etc/ssh/sshd_config` die config Datei aufmachen `i` drucken und nach der Zeile `Port 22` folgendes einfügen: 
+
+```bash 
+Port <Port 2>
+```
+Dann mit `service ssh restart` den openssh-server neustarten. Achtung die sitzung beendet sich. **Und versuchen über neuen Port den Server zu erreichen: 
+
+```ssh
+ssh -p <Port 2> root@erfanmedia.de
+```
 
 # 2. Befehl Installieren
 
