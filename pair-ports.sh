@@ -9,10 +9,16 @@
 #!/bin/bash
 
 # Source the ports.conf file
+echo "ports=(" > ports.conf
+head -n 100 usable.ports.txt >> ports.conf
+echo ")" >>ports.conf
+
 source ports.conf
+
 
 # Output file
 output_file="doc/paired_ports.txt"
+
 
 # Initialize line number
 line_number=1
@@ -28,10 +34,16 @@ for ((i=0; i<${#ports[@]}; i+=2)); do
         port2=${ports[$((i+1))]}
 
         # Write the pair and line number to the output file
-        echo "$line_number : $port1 - $port2" >> "$output_file"
+        echo -e "$line_number\t:\t$port1\t-\t$port2" >> "$output_file"
         line_number=$((line_number + 1))
     fi
 done
+
+sed -i "/^#Port>/,/^#Port</ { 
+    /^#Port>/!{/^#Port</!d} 
+    /^#Port>/r $output_file
+}" doc/README.md
+
 
 echo "Port pairs written to $output_file"
 

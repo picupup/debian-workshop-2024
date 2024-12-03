@@ -10,30 +10,18 @@
 file=${1:?"Insert Filename."}
 out=${2:-"valid-server.ports"}
 
-f1=$(mktemp)
-while read -r port; do
-    if ! lsof -i :"$port" &>/dev/null; then
-        echo -en "\rCehck 1. $port"
-        echo "$port" >> $f1
-    fi
-done < $file
-
-
-
-
 f2=$(mktemp)
 while read -r port; do
     if ! netstat -tuln | grep -q ":$port "; then
-	    echo -ne "\rCheck 2. $port"
+	    echo -ne "\rCheck 1. $port"
 	    # Not in use
         echo "$port" >> $f2
     fi
-done < $f1
-rm -f $f1
+done < $file
 
 while read -r port; do
     if ! ss -tuln | grep -q ":$port "; then
-        echo -en "\rCheck 3. $port"
+        echo -en "\rCheck 2. $port"
 	echo "$port" >> $out
     fi
 done < $f2
