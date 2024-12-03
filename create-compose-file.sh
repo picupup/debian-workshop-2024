@@ -9,9 +9,9 @@
 
 echo "services:" > docker-compose.yml
 
-ports=( 3389 3306
-       	# 587 5222 990 993 995 
-        # 27017 5900 25565
+ports=( 3389 3306 587 5222 
+	 # 990 993 995 
+         # 27017 5900 25565
 	)
 
 i=0
@@ -22,6 +22,7 @@ for port in ${ports[@]}; do
 	echo -e "  workshop_debian_server_$i:
     image: debian_server_workshop_image
     container_name: \"debian-workshop-$i\"
+    hostname: \"debian-workshop-server-$i\"
     restart: unless-stopped
     ports:
       - \"$port:22\" # Exposes unique ports per instance

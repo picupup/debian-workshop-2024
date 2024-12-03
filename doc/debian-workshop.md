@@ -28,14 +28,12 @@ Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ ve
 | Server-Nummer |    s1    |	s2    | s3	 |     s4   | s5       |  s6	  |
 |---------------|----------|----------|----------|----------|----------|----------|
 | Hauptport     |   3389   |    3306  |  587     |    5222  |     990  | 993      |
-|---------------|----------|----------|----------|----------|----------|----------|
 | Alter. Port   |    5001  |    5002  |    5003  |     5004 |     5005 |    5006  |
 
 
 | Server-Nummer |      s7  |  s8  |   s9 |  10   |
 |---------------|----------|------|------|-------|
 | Hauptport     |   995    |27017 | 5900 | 25565 |
-|---------------|----------|------|------|-------|
 | Alter. Port   |    5007  | 5008 | 5009 | 5010  |
 
 Von der Hochschul-net nach aussen funktionieren die "Alter. Port"s nicht.
@@ -84,6 +82,15 @@ Jetzt solltest du dich ohne Eingabe des Passwortes auf dem Server einloggen kön
 ```bash
 ssh debianworkshop
 ```
+
+## Die Willkommensnachricht entfernen
+Wenn du dich per SSH auf dem Server anmeldest, erscheint eine Nachricht wie `The programs....` Diese Nachricht wird in der Datei `/etc/motd` gespeichert. Um die Nachricht zu entfernen, kannst du die Datei wie folgt leeren:
+
+```bash
+> /etc/motd
+```
+
+Du kannst auch mit vim etwas darein schreiben.
 
 ### SSH port ändern
 In diesem abschnitt fügen wir einen alternativen ssh-port zu `openssh-server` config.
