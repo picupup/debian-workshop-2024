@@ -4,8 +4,6 @@ Erfan Karimi  12.12.2024
 # Debian Workshop Anleitung 
 Hallo, bitte befolge die Schritte. Das Ganze ist so gedacht, dass am Ende etwas übrig bleibt, also hab kein Stress.
 
-
-
 ### Links:
 Dieser Anleitung findest du auch unter:
 
@@ -27,11 +25,18 @@ Für die Bearbeitung der Schritte musst du dich mit einem „remote-server“ ve
 **Nutzernummer/port**: Für deinen Nutzer wähle bitte ein Server aus der untere Tabelle.! Immer eine pro Person.
 
 
-| Server-Nummer |    s1    |	s2    | s3	 |     s4   | s5       |  s6	  | 	 s7  |  s8  |   s9 |  10   |
-|---------------|----------|----------|----------|----------|----------|----------|----------|------|------|-------|
-| Hauptport     |   3389   |    3306  |  587     |    5222  |     990  | 993      |   995    |27017 | 5900 | 25565 |
-|---------------|----------|----------|----------|----------|----------|----------|----------|------|------|-------|
-| Alter. Port   |    5001  |    5002  |    5003  |     5004 |     5005 |    5006  |    5007  | 5008 | 5009 | 5010  |
+| Server-Nummer |    s1    |	s2    | s3	 |     s4   | s5       |  s6	  |
+|---------------|----------|----------|----------|----------|----------|----------|
+| Hauptport     |   3389   |    3306  |  587     |    5222  |     990  | 993      |
+|---------------|----------|----------|----------|----------|----------|----------|
+| Alter. Port   |    5001  |    5002  |    5003  |     5004 |     5005 |    5006  |
+
+
+| Server-Nummer |      s7  |  s8  |   s9 |  10   |
+|---------------|----------|------|------|-------|
+| Hauptport     |   995    |27017 | 5900 | 25565 |
+|---------------|----------|------|------|-------|
+| Alter. Port   |    5007  | 5008 | 5009 | 5010  |
 
 Von der Hochschul-net nach aussen funktionieren die "Alter. Port"s nicht.
 
@@ -124,7 +129,7 @@ Nun vergleiche die Zeit nochmal. Auf dem Server sollte jetzt die richtige Zeit a
 
 Du bist aktuell als „root“-Nutzer eingeloggt. Doch da der „root“-Nutzer alle Rechte auf dem Server hat, ist es nicht sicher, als root eingeloggt zu sein. Du solltest dir einen separaten Nutzer erstellen und damit arbeiten. Root-Rechte werden nur bei der Installation oder Konfiguration von Komponenten benötigt.\
 
-Nun solltest du einen neuen Nutzer erstellen. Achte auf die eckigen Klammern:
+Nun solltest du einen neuen Nutzer erstellen. Achte auf die Spitzen Klammern:
 
 **Spitze Klammer <user> austauchen**
 
@@ -249,17 +254,37 @@ Erstellen sie ein Skript mit sudo unter `/usr/local/bin/` und machen sie es für
 
 Hier ist ein Beispiel:
 
-``bash
+```bash
 sudo tee /usr/local/bin/hallo.sh &>/dev/null <<END
 #!/usr/bin/env bash
-echo "Hallo das Skript wird hiermit ausgeführt. Hier ist die Zeit $(date '+%F_%T')" 
+echo "Hallo das Skript wird hiermit ausgefuehrt. Hier ist die Zeit $(date '+%F_%T')"
 END
 
-sudo chmod o+x /usr/local/bin/hallo.sh
+sudo chmod +x /usr/local/bin/hallo.sh
 
 hallo.sh
+
 ```
 
+
+# 9. Git nutzer erstellen
+Hier klonen wir ein paar Skripte. Damit kann man gruppen, Nutzer und git (gitterbret) Nutzer erstellen und benutzen:
+
+Git Nutzer erstellen:
+```bash
+cd; mkdir -p repos; cd repos
+git clone https://github.com/picupup/scripts.git
+cd scripts
+./deploy.sh server
+```
+
+Ein Beipiel Repo erstellen und klonen:
+
+```bash
+create-bare-repo testrepo $USER
+cd ~/repos/
+git clone /home/git/testrepo.git
+```
 # Fertig und Weiter
 
 Meine Admin-Skripte findet ihr hier: [github.com/picupup/scripts](https://github.com/picupup/scripts)
