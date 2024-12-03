@@ -1,5 +1,5 @@
 
-Erfan Karimi  12.12.2024
+Erfan Karimi  17.12.2024
 
 # Debian Workshop Anleitung 
 Hallo, bitte befolge die Schritte. Das Ganze ist so gedacht, dass am Ende etwas übrig bleibt, also hab kein Stress.
