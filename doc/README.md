@@ -136,12 +136,23 @@ Du kannst auch mit vim etwas darein schreiben.
 
 ### SSH port ändern
 In diesem abschnitt fügen wir einen alternativen ssh-port zu `openssh-server` config.
-Mit `vim /etc/ssh/sshd_config` die config Datei aufmachen `i` drucken und nach der Zeile `Port 22` folgendes einfügen: 
+
+Mit 
+
+```bash
+vim /etc/ssh/sshd_config
+```
+ die config Datei aufmachen `i` drucken und nach der Zeile `Port 22` folgendes einfügen: 
 
 ```bash 
 Port <Port 2>
 ```
-Dann mit `service ssh restart` den openssh-server neustarten. Achtung die sitzung beendet sich. **Und versuchen über neuen Port den Server zu erreichen: 
+Dann mit 
+
+```bash
+service ssh restart
+```
+ den openssh-server neustarten. Achtung die sitzung beendet sich. **Und versuchen über neuen Port den Server zu erreichen: 
 
 ```ssh
 ssh -p <Port 2> root@erfanmedia.de
