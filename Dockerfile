@@ -20,6 +20,13 @@ RUN apt-get install -y openssh-server && \
 RUN --mount=type=secret,id=root_password \
     echo "root:$(cat /run/secrets/root_password)" | chpasswd
 
+# Copy the script to /usr/local/sbin
+COPY update-nftables.sh /usr/local/sbin/
+
+# Make the script executable for all users
+RUN chmod a+x /usr/local/sbin/update-nftables.sh
+
+
 # RUN apt-get install -y tzdata && \
 #    ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
 #    dpkg-reconfigure -f noninteractive tzdata
