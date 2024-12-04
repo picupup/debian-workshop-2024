@@ -352,7 +352,7 @@ cd ~/repos/
 git clone /home/git/testrepo.git
 ```
 
-# 10. Firewall mit nftables, Fail2Ban und automatischen Updates einrichten
+# 10. Firewall mit nftables einrichten
 Ab diesem Abschnitt richten wir eine grundlegende Sicherheitskonfiguration für den Server ein, die aus einer Firewall mit nftables, einem Schutz gegen Brute-Force-Angriffe mit Fail2Ban und der Automatisierung von Sicherheitsupdates besteht.
 
 #### **Firewall mit nftables**
