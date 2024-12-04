@@ -316,7 +316,6 @@ Beispiel:
 ```bash
 echo "Hallo" > /var/www/html/hallo.txt
 ```
-
 # 8. Skripte Serverweit zugänglich machen
 Erstellen sie ein Skript mit sudo unter `/usr/local/bin/` und machen sie es für alle Nutzern ausführbar. Und testen sie es.
 
@@ -333,7 +332,6 @@ sudo chmod +x /usr/local/bin/hallo.sh
 hallo.sh
 
 ```
-
 
 # 9. Git nutzer erstellen
 Hier klonen wir ein paar Skripte. Damit kann man gruppen, Nutzer und git (gitterbret) Nutzer erstellen und benutzen:
@@ -352,6 +350,181 @@ Ein Beipiel Repo erstellen und klonen:
 create-bare-repo testrepo $USER
 cd ~/repos/
 git clone /home/git/testrepo.git
+```
+
+# 10. Firewall mit nftables, Fail2Ban und automatischen Updates einrichten
+Ab diesem Abschnitt richten wir eine grundlegende Sicherheitskonfiguration für den Server ein, die aus einer Firewall mit nftables, einem Schutz gegen Brute-Force-Angriffe mit Fail2Ban und der Automatisierung von Sicherheitsupdates besteht.
+
+#### **Firewall mit nftables**
+
+`nftables` ist ein modernes und leistungsstarkes Tool zur Verwaltung von Firewalls in Linux.
+
+1.  **Installieren von `nftables`**
+    
+    ```bash
+    sudo apt-get install -y nftables
+    ```
+
+2.  **Standardkonfiguration erstellen**  
+    Erstelle eine neue Regeldatei:
+    
+    ```bash
+    sudo vim /etc/nftables.conf
+    ```
+
+    Du solltest die folgende Config in der Datei schreiben. Bitte beobachte die 3. Bestandteile. Es gibt `chain input`, `chain output` und `chain forward` für jeweils eingehende-, ausgehende- und weiterleitende Verbindungen. 
+
+
+    Füge folgende Regeln hinzu:
+    
+```txt
+#!/usr/bin/nft -f
+
+table inet filter {
+  chain input {
+    type filter hook input priority 0;
+    
+    # Standardaktion: Alle nicht explizit erlaubten Verbindungen werden abgelehnt
+    policy drop
+
+    # Erlaube bereits etablierte und verwandte Verbindungen
+    ct state {established, related} accept
+
+    # Verbindungen von und zu Loopback-Interface erlauben
+    iifname lo accept
+
+    # ICMP (Ping) erlauben
+    ip protocol icmp accept
+    ip6 nexthdr icmpv6 accept
+
+    # Erlaube SSH, HTTP, HTTPS und Port 8080
+    tcp dport {ssh,http,https,8080} accept
+
+    # Alle anderen Verbindungen abweisen mit ICMP-Port-Unreachable
+    reject with icmp type port-unreachable
+  }
+
+  chain forward {
+    type filter hook forward priority 0;
+    
+    # Standardaktion: Alle Weiterleitungen werden abgelehnt
+    policy drop
+  }
+
+  chain output {
+    type filter hook output priority 0;
+    
+    # Standardaktion: Alle ausgehenden Verbindungen werden erlaubt
+    policy accept
+  }
+}
+```
+
+3.  **Firewall aktivieren** (Anders als üblich)
+
+    Um die Regeln aktivieren und nftables starten, führt man für üblich folgendes durch. Es ist aber in der Workshop umgebung nicht möglich dies zu tuen. 
+
+    ------------------------------
+    sudo systemctl enable nftables
+    sudo systemctl start nftables
+    ---------------------------
+
+    Jedoch für den Workshop, bitte führe folgendes durch nach jede änderung der config Datei: (`update-nftables.sh`)
+    ```bash
+	nft flush ruleset
+	nft -f /etc/nftables.conf
+    ```
+
+4.  **Regeln testen**
+    Zum testen bitte einmal den Port http(80) von der config Datei entfernen nftables aktualisieren und beobachten, ob der Apache2 Server noch erreichbar ist? Bitte nicht vergesen den Port weider in der Config-Datei zu schreiben und nft aktualisieren.
+
+    Also Damit seht ihr die aktuellen Regeln.
+    ```bash
+        sudo nft list ruleset
+    ```
+5. **Port über Befehlzeile freischalten**
+    ```bash
+        nft add rule inet filter input tcp dport <Port 2> accept
+    ```
+
+# 10. Automatische Updates mit unattended-upgrades
+Sicherheitsupdates automatisch installieren lassen.
+1. Installieren von unattended-upgrades
+
+```bash
+sudo apt-get install -y unattended-upgrades
+```
+2. Konfiguration aktivieren
+
+```bash
+sudo dpkg-reconfigure unattended-upgrades
+```
+
+3. Erweiterte Einstellungen anpassen
+Öffne die Konfigurationsdatei:
+
+```bash
+sudo vim /etc/apt/apt.conf.d/50unattended-upgrades
+```
+Überprüfe, ob folgende Einstellungen aktiv sind:
+
+```bash
+Unattended-Upgrade::Allowed-Origins {
+    "${distro_id}:${distro_codename}-security";
+    "${distro_id}:${distro_codename}-updates";
+};
+Unattended-Upgrade::Automatic-Reboot "true";
+```
+
+4. Logs prüfen
+
+Die Logs der automatischen Updated findest du hier:
+
+```bash
+sudo less /var/log/unattended-upgrades/unattended-upgrades.log
+```
+
+# 12. Schutz vor Brute-Force-Angriffen mit Fail2Ban - Für Zuhause
+Dies funktioniert nicht auf dem Workshop server.
+
+Fail2Ban schützt den Server vor automatisierten Login-Versuchen.
+
+1. Installieren von Fail2Ban
+
+```bash
+    sudo apt-get install -y fail2ban
+```
+
+2. Konfiguration anpassen
+Erstelle eine lokale Konfigurationsdatei:
+
+```bash
+    sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+    sudo vim /etc/fail2ban/jail.local
+```
+Aktiviere SSH-Schutz und passe die Konfiguration an:
+
+```bash
+[sshd]
+enabled = true
+port = 22,<Port 2>
+bantime = 1h
+findtime = 10m
+maxretry = 3
+```
+
+3. Fail2Ban starten
+
+```bash
+sudo systemctl enable fail2ban
+sudo systemctl start fail2ban
+```
+
+4. Status prüfen
+
+```bash
+sudo fail2ban-client status
+sudo fail2ban-client status sshd
 ```
 # Fertig und Weiter
 

@@ -27,6 +27,7 @@ while [ $((i + 1)) -lt $array_size ]; do
     echo "Ports $port1 $port2"
     echo -e "  workshop_debian_server_$server:
     image: debian_server_workshop_image
+    privileged: true
     container_name: \"debian-workshop-$server\"
     hostname: \"debian-workshop-server-$server\"
     restart: unless-stopped
