@@ -33,6 +33,18 @@ function port_exists {
 	return 1
 }
 
+function link-if-not-exists {
+	local port="${1}"
+	local text="$2"
+
+	# Map both ports
+    	if ! port_exists "$port" ; then
+		./upnpc-map-to.sh "debian workshop $text" $port
+	else
+	       	echo -e "\tPort $port exists" 
+	fi
+
+}
 
 # Total number of ports
 total_ports=${#ports[@]}
@@ -41,21 +53,13 @@ total_ports=${#ports[@]}
 for ((i=0; i<$((LIMIT * 2)) && i+1<$total_ports; i+=2)); do
 	port=${ports[$i]}
 	port2=${ports[$i+1]}  # Select the next port as port2
+	servernumber=$(((i  / 2) + 1 ))
 
-	echo "[$(((i  / 2) + 1 ))] Opening ports: $port and $port2"
+	echo "[$servernumber] Opening ports: $port and $port2"
 	
-	# Map both ports
-    	if ! port_exists "$port" ; then
-		./upnpc-map-to.sh "debian workshop $((i/2 + 1))" $port
-	else
-	       	echo "Port $port exists" 
-	fi
+	link-if-not-exists "$port" "debian workshop $servernumber" 
+	link-if-not-exists "$port2" "debian workshop $servernumber" 
 
-    	if ! port_exists "$port2" ; then
-		./upnpc-map-to.sh "debian workshop $((i/2 + 1))" $port2
-	else
-	       	echo "Port $port2 exists" 
-	fi
 done
 
 # If we reach the limit or run out of pairs

@@ -36,14 +36,10 @@ type=${5:-"TCP"}
 
 which upnpc &>/dev/null || { echo "Error: Please install the command 'upnpc' via 'miniupnpc'." >&2; exit 1; }
 
-# Check if the rule already exists
-if upnpc -l | grep -q "${ip}:${p2} ${type}"; then
-    echo "Port ${p1} (internal: ${ip}:${p2}, ${type}) is already redirected. Skipping."
-else
-    # Add the redirection if it does not exist
-    upnpc -e "${name}" -a "${ip}" ${p1} ${p2} "${type}" | \
-    grep "is redirected" | tr -dc '0-9:. ' | tr ' ' '-' | \
-    sed 's/------/ ---> /' | sed 's/-0$//' | sed 's/^-//'
-fi
+echo -en "\t"
+# Add the redirection if it does not exist
+upnpc -e "${name}" -a "${ip}" ${p1} ${p2} "${type}" | \
+grep "is redirected" | tr -dc '0-9:. ' | tr ' ' '-' | \
+sed 's/------/ ---> /' | sed 's/-0$//' | sed 's/^-//'
 
 echo
