@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SCRIPT: update-nftables.sh 
+# SCRIPT: nft-update.sh 
 # AUTHOR: ...
 # DATE: 2024-12-04T22:51:58
 # REV: 1.0

@@ -429,7 +429,7 @@ table inet filter {
     sudo systemctl start nftables
     ---------------------------
 
-    Jedoch für den Workshop, bitte führe folgendes durch nach jede änderung der config Datei: (`update-nftables.sh`)
+    Jedoch für den Workshop, bitte führe folgendes durch nach jede änderung der config Datei: (`nft-update.sh`)
     ```bash
 	nft flush ruleset
 	nft -f /etc/nftables.conf
