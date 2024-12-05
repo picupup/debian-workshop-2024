@@ -350,6 +350,8 @@ Ab diesem Abschnitt richten wir eine grundlegende Sicherheitskonfiguration für 
 ```txt
 #!/usr/bin/nft -f
 
+flush ruleset
+
 table inet filter {
   chain input {
     type filter hook input priority 0;
@@ -401,7 +403,6 @@ table inet filter {
 
     Jedoch für den Workshop, bitte führe folgendes durch nach jede änderung der config Datei: (`nft-update.sh`)
     ```bash
-	nft flush ruleset
 	nft -f /etc/nftables.conf
     ```
 
