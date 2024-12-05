@@ -267,6 +267,8 @@ Wir sind aktuell in einer virtuellen Docker-Umgebung. Solltest du Apache2 auf de
 sudo systemctl start apache2
 ```
 
+# Besuche der online link
+
 ## Besitzer des Web-Verzeichnises ändern
 
 Um daten im Internet anzuzeigen speichert man die Daten unter `/var/www/html`
@@ -278,6 +280,13 @@ sudo chown <nutzer>:<nutzer> /var/www/html
 ```
 
 ## Im Browser anschauen
+
+Der online link, um zu sehen ob der server ist am laufen ist:
+
+```bash
+http://workshop<Server Number>.erfanmedia.de
+```
+
 Erstelle einer Datei unter `/var/www/html/`. Zum Beispiel `hallo.txt` und ruffe es über `workshop<Nutzernummer>.erfanmedia.de/hallo.txt` auf.
 
 Sie können auch die `index.html` Datei umändern.
@@ -306,7 +315,7 @@ hallo.sh
 # 9. Git nutzer erstellen
 Hier klonen wir ein paar Skripte. Damit kann man gruppen, Nutzer und git (gitterbret) Nutzer erstellen und benutzen:
 
-Git Nutzer erstellen:
+1. Git Nutzer erstellen:
 ```bash
 cd; mkdir -p repos; cd repos
 git clone https://github.com/picupup/scripts.git
@@ -314,12 +323,21 @@ cd scripts
 ./deploy.sh server
 ```
 
-Ein Beipiel Repo erstellen und klonen:
+2. Ein Beipiel Repo erstellen und klonen:
 
 ```bash
 create-bare-repo testrepo $USER
 cd ~/repos/
 git clone /home/git/testrepo.git
+```
+3. Etwas pushen (Optional)
+
+```bash
+cd testrepo
+echo "Hallo" > test.txt
+git add .
+git commit -m 'Erstes Commit'
+git push
 ```
 
 # 10. Firewall mit nftables einrichten
@@ -409,6 +427,12 @@ table inet filter {
 4.  **Regeln testen**
     Zum testen bitte einmal den Port http(80) von der config Datei entfernen nftables aktualisieren und beobachten, ob der Apache2 Server noch erreichbar ist? Bitte nicht vergesen den Port weider in der Config-Datei zu schreiben und nft aktualisieren.
 
+Also um deinen zweiten ssh port auf dem Server freizugeben, füge es in der config; in der folgende Zeile:
+
+```bash
+    tcp dport {ssh,http,https,8080} accept
+```
+
     Also Damit seht ihr die aktuellen Regeln.
     ```bash
         sudo nft list ruleset
@@ -440,14 +464,18 @@ sudo vim /etc/apt/apt.conf.d/50unattended-upgrades
 Überprüfe, ob folgende Einstellungen aktiv sind:
 
 ```bash
-Unattended-Upgrade::Allowed-Origins {
-    "${distro_id}:${distro_codename}-security";
-    "${distro_id}:${distro_codename}-updates";
-};
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+...
 Unattended-Upgrade::Automatic-Reboot "true";
 ```
 
-4. Logs prüfen
+4. Testen
+
+Um es zu testen folgendes ausführen:
+
+```bash
+sudo unattended-upgrade --debug
+```
 
 Die Logs der automatischen Updated findest du hier:
 
