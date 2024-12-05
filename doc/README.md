@@ -354,9 +354,9 @@ Ab diesem Abschnitt richten wir eine grundlegende Sicherheitskonfiguration für 
     ```
 
 2.  **Standardkonfiguration erstellen**  
-    Erstelle eine neue Regeldatei:
+    Regeldatei Verändern:
     
-    ```bash
+    ```bash 
     sudo vim /etc/nftables.conf
     ```
 
@@ -421,7 +421,7 @@ table inet filter {
 
     Jedoch für den Workshop, bitte führe folgendes durch nach jede änderung der config Datei: (`nft-update.sh`)
     ```bash
-	nft -f /etc/nftables.conf
+	sudo nft -f /etc/nftables.conf
     ```
 
 4.  **Regeln testen**
