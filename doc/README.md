@@ -465,7 +465,7 @@ sudo vim /etc/apt/apt.conf.d/50unattended-upgrades
 
 ```bash
 Unattended-Upgrade::Remove-Unused-Dependencies "true";
-...
+# ...
 Unattended-Upgrade::Automatic-Reboot "true";
 ```
 
