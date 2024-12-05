@@ -42,6 +42,8 @@ RUN chmod a+x /usr/local/sbin/nft-update.sh
 EXPOSE 22
 EXPOSE 443
 EXPOSE 80
+
+# https://stackoverflow.com/a/28406007
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen
 # Set the environment variables
