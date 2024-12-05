@@ -27,6 +27,8 @@ while [ $((i + 1)) -lt $array_size ]; do
     echo "Ports $port1 $port2"
     echo -e "  workshop_debian_server_$server:
     image: debian_server_workshop_image
+    volumes:
+      - ./etc/resolv.conf:/etc/resolv.conf:ro
     privileged: true
     container_name: \"debian-workshop-$server\"
     hostname: \"debian-workshop-server-$server\"
@@ -38,6 +40,9 @@ while [ $((i + 1)) -lt $array_size ]; do
       - \"$((7000 + server)):443\"
     environment:
       - USER_NUMBER=$server
+      - LANG=en_US.UTF-8
+      - LANGUAGE=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
     deploy:
       resources:
         limits:
