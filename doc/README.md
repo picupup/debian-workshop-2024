@@ -433,15 +433,15 @@ table inet filter {
 4.  **Regeln testen**
     Zum testen bitte einmal den Port http(80) von der config Datei entfernen nftables aktualisieren und beobachten, ob der Apache2 Server noch erreichbar ist? Bitte nicht vergesen den Port weider in der Config-Datei zu schreiben und nft aktualisieren.
 
-Also um deinen zweiten ssh port auf dem Server freizugeben, füge es in der config; in der folgende Zeile:
+    Also um deinen zweiten ssh port auf dem Server freizugeben, füge es in der config; in der folgende Zeile:
 
-```bash
+    ```bash
     tcp dport {ssh,http,https,8080} accept
-```
+    ```
 
     Also Damit seht ihr die aktuellen Regeln.
     ```bash
-        sudo nft list ruleset
+    sudo nft list ruleset
     ```
 5. **Port über Befehlzeile freischalten**
     ```bash
