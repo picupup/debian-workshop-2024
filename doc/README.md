@@ -421,10 +421,8 @@ table inet filter {
     Um die Regeln aktivieren und nftables starten, führt man für üblich folgendes durch. Es ist aber in der Workshop umgebung nicht möglich dies zu tuen. 
 
     ```bash
-        ------------------------------
         sudo systemctl enable nftables
         sudo systemctl start nftables
-        ---------------------------
     ```
 
     Jedoch für den Workshop, bitte führe folgendes durch nach jede änderung der config Datei: (`nft-update.sh`)
