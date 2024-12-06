@@ -323,7 +323,13 @@ cd scripts
 ./deploy.sh server
 ```
 
-2. Ein Beipiel Repo erstellen und klonen:
+3. Git Nutzer-Daten setzen
+```bash
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+```
+
+4. Ein Beipiel Repo erstellen und klonen:
 
 ```bash
 create-bare-repo testrepo $USER
@@ -414,10 +420,12 @@ table inet filter {
 
     Um die Regeln aktivieren und nftables starten, führt man für üblich folgendes durch. Es ist aber in der Workshop umgebung nicht möglich dies zu tuen. 
 
-    ------------------------------
-    sudo systemctl enable nftables
-    sudo systemctl start nftables
-    ---------------------------
+    ```bash
+        ------------------------------
+        sudo systemctl enable nftables
+        sudo systemctl start nftables
+        ---------------------------
+    ```
 
     Jedoch für den Workshop, bitte führe folgendes durch nach jede änderung der config Datei: (`nft-update.sh`)
     ```bash
@@ -442,7 +450,7 @@ Also um deinen zweiten ssh port auf dem Server freizugeben, füge es in der conf
         nft add rule inet filter input tcp dport <Port 2> accept
     ```
 
-# 10. Automatische Updates mit unattended-upgrades
+# 11. Automatische Updates mit unattended-upgrades
 Sicherheitsupdates automatisch installieren lassen.
 1. Installieren von unattended-upgrades
 
