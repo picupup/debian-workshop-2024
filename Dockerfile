@@ -30,13 +30,9 @@ COPY nft-update.sh /usr/local/sbin/
 RUN chmod a+x /usr/local/sbin/nft-update.sh
 
 
-# RUN apt-get install -y tzdata && \
-#    ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
-#    dpkg-reconfigure -f noninteractive tzdata
-
-# Create necessary directories for systemd
 # RUN mkdir -p /run/systemd /var/run/sshd
 # VOLUME [ "/sys/fs/cgroup" ]
+RUN service ssh start
 
 # Expose den Standard-SSH-Port
 EXPOSE 22

@@ -18,4 +18,4 @@ name=debian_server_workshop_image
 
 docker image rm -f $name 
 
-docker build --secret id=root_password,src=./${pass} -t $name .
+docker build --no-cache --secret id=root_password,src=./${pass} -t $name .

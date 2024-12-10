@@ -45,5 +45,5 @@ sed -i "/^#Port>/,/^#Port</ {
 }" doc/README.md
 
 
-echo "Port pairs written to $output_file"
+echo "Port pairs written to $output_file. And doc/README.md"
 
