@@ -19,5 +19,5 @@ fi
 docker compose up --build -d || exit 1
 
 echo 
-echo "Listing the containers:"
-docker container ls -a | grep debian-workshop-
+# echo "Listing the containers:"
+# docker container ls --format "{{.Names}}" | grep "debian-workshop-"  

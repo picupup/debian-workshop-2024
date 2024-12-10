@@ -5,7 +5,7 @@
 # REV: 1.0
 # ARGUMENTS: [1:        ][2:		][3:		][4:        ]
 #
-# PURPOSE: ...
+# PURPOSE: Reopens ports after Ip change, via upnpc
 #
 # set -x # Uncomment to debug
 # set -n # Uncomment to check script syntax without execution
