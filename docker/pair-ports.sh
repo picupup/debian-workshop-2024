@@ -17,7 +17,7 @@ source ports.conf
 
 
 # Output file
-output_file="doc/paired_ports.txt"
+output_file=../paired_ports.txt
 
 
 # Initialize line number
@@ -45,5 +45,5 @@ sed -i "/^#Port>/,/^#Port</ {
 }" doc/README.md
 
 
-echo "Port pairs written to $output_file. And doc/README.md"
+echo "Port pairs written to $output_file. And ../README.md"
 
