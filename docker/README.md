@@ -4,4 +4,4 @@ It is for a workshop to show some commands to run as root and set up a debian se
 
 ## init
 
-In the router the ports between 6000 and 6010 needs to be open. Also the router should allow openning ports over upnpc. After that running `init.sh` will open other ports and start the docker containers.
+In the firwall the ports between 6000 and 60 + `limit` needs to be open. Also it opens ports using upnpc. After that running `init.sh` will open other ports and start the docker containers.
